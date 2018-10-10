@@ -1,0 +1,22 @@
+$primary: #f4d942;
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+/* Customiszations */
+/*$primary: $orange;*/
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+/* @mixin or @extend customizations */
+
+
+.bg-secondary-light {
+  background-color: #e0e0e0;
+}
+/* edit4 */
+
+.max_ {
+  color: $primary;
+}
