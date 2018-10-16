@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import ActivityNav from './ActivityNav.js';
 import Image from './Image.js';
