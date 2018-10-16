@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
 class ActivityNav extends Component {
   render() {
     return (
       <ul className="nav nav-tabs mb-3">
         <li className="nav-item">
-          <a className="nav-link active" href>View</a>
+          <NavLink className="nav-link" to="" activeClassName="activie">View</NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="edit">Edit</a>
+          <NavLink className="nav-link" to="edit" activeClassName="activie">Edit</NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="history">History</a>
+          <NavLink className="nav-link" to="history" activeClassName="activie">History</NavLink>
         </li>
       </ul>
     );
