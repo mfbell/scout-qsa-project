@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import ActivityNav from './ActivityNav.js';
 import Image from './Image.js';
 import Equipment from './ActivityEquipment.js';
@@ -22,4 +23,8 @@ class Activity extends Component {
   }
 }
 
-export default Activity;
+function Create() {
+  return "Create activity page";
+}
+
+export { Activity, Create };
