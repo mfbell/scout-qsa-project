@@ -7,6 +7,7 @@ import AboutUs from './AboutUs.js';
 import { SignIn, SignUp } from './Auth.js';
 import { Me } from './User.js'
 import { Activity, Create } from './Activity.js';
+import Blog from './Blog.js'
 import { NoMatch } from './Errors.js';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
             <Redirect exact from="/a" to="/create" />
             <Route path="/a/:slug" component={Activity} />
             <Route path="/create" component={Create} />
+            <Route path="/blog" component={Blog} />
             <Route component={NoMatch} />
           </Switch>
           <Footer />
