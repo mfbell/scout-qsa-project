@@ -1,4 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { 
+  ListGroup, 
+  ListGroupItem, 
+  ListGroupItemHeading, 
+  ListGroupItemText, 
+  Badge,
+  Form, 
+  FormGroup, 
+  Label, 
+  Input,
+  FormText,
+  Col,
+  Row
+} from 'reactstrap';
 
 class Equipment extends Component {
   constructor(props) {
@@ -37,36 +51,62 @@ class Equipment extends Component {
           console.error("Unknown equipment.per value")
           break;
       };
-      return (<il key={item.name}>{quantity} {item.name}</il>);
+      if (isNaN(quantity)) {quantity = ""};
+      return (
+        <ListGroupItem>
+          <ListGroupItemHeading>
+            <Badge pill>{quantity}</Badge> {item.name}
+          </ListGroupItemHeading>
+          <ListGroupItemText>
+            {item.quantity} per {item.per}.
+          </ListGroupItemText>
+        </ListGroupItem>
+      );
     });
     return (
       <>
         <h2>Equipment</h2>
-        <form>
-          <div className="form-group">
-            <label for="scouts">Scouts</label>
-            <input 
-              type="number" 
-              name="scouts"
-              className="form-control" 
-              id="scouts" 
-              min="1"
-            />
-          </div>
-          <div className="form-group">
-            <label for="patrols">Patrols</label>
-            <input 
-              type="number" 
-              name="patrols"
-              className="form-control" 
-              id="patrols" 
-              min="1"
-            />
-          </div>
-        </form>
-        <ul>
+        <Form>
+          <Row form>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="scouts">Scouts</Label>
+                <Input 
+                  type="number" 
+                  name="scouts"
+                  className="form-control" 
+                  id="scouts" 
+                  min="1"
+                  placeholder="24"
+                  required
+                  value={this.state.scouts}
+                  onChange={this.handleInputChange}
+                />
+                <FormText>Enter your number of Scouts</FormText>
+              </FormGroup>
+            </Col>
+            <Col md={6}>
+              <FormGroup>
+                <Label for="patrols">Patrols</Label>
+                <Input 
+                  type="number" 
+                  name="patrols"
+                  className="form-control" 
+                  id="patrols" 
+                  min="1"
+                  placeholder="4"
+                  required
+                  value={this.state.patrols}
+                  onChange={this.handleInputChange}
+                />
+                <FormText>Enter your number of Patrols</FormText>
+              </FormGroup>
+            </Col>
+          </Row>
+        </Form>
+        <ListGroup>
           {equipmentList}
-        </ul>
+        </ListGroup>
       </>
     );
   }

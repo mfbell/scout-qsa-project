@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
-import { NavBar, Footer } from './Nav.js';
+import { Navbar, Footer } from './Nav.js';
 import Home from './Home.js';
 import AboutUs from './AboutUs.js';
 import { SignIn, SignUp } from './Auth.js';
@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <Router>
         <>
-          <NavBar />
+          <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/about-us" component={AboutUs} />

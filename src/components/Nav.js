@@ -1,17 +1,54 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink as RRNavLink } from 'react-router-dom';
 
-class NavBar extends Component {
+import {
+  Collapse,
+  Navbar as RSNavBar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Form,
+  Input
+} from 'reactstrap';
+
+
+class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    };
+
+    this.toggle = this.toggle.bind(this);
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
   render() {
     return (
-      <nav className="navbar navbar-dark bg-dark px-3">
-        <NavLink className="navbar-brand" to="/">SABD</NavLink>
-        <form className="form-inline">
-          <input className="form-control bg-dark text-light" 
-            type="search" placeholder="Explorer - Discover - Share" />
-        </form>
-        <SideNav />
-      </nav>
+      <RSNavBar expand="sm">
+        <NavbarBrand to="/" tag={RRNavLink}>SABD</NavbarBrand>
+        <NavbarToggler onClick={this.toggle} />
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Form>
+            <Input type="search" placeholder="Explorer - Discover - Share" />
+          </Form>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink tag={RRNavLink} to="/saved" activeClassName="active">Saved</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={RRNavLink} to="/sign-in" activeClassName="active">Sign in</NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </RSNavBar>
     );
   }
 }
@@ -73,4 +110,4 @@ class Footer extends Component {
   }
 }
 
-export { NavBar, SideNav, Footer };
+export { Navbar, SideNav, Footer };

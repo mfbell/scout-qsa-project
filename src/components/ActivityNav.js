@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink as RRNavLink } from 'react-router-dom';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 
 class ActivityNav extends Component {
   render() {
     return (
-      <ul className="nav nav-tabs mb-3">
-        <li className="nav-item">
-          <NavLink className="nav-link" to="" activeClassName="activie">View</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="edit" activeClassName="activie">Edit</NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink className="nav-link" to="history" activeClassName="activie">History</NavLink>
-        </li>
-      </ul>
+      <Nav tabs>
+        <NavItem>
+          <NavLink tag={RRNavLink} to="" activeClassName="active">View</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink tag={RRNavLink} to="edit" activeClassName="active">Edit</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink tag={RRNavLink} to="history" activeClassName="active">History</NavLink>
+        </NavItem>
+      </Nav>
     );
   }
 }
