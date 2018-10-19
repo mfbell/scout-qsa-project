@@ -53,7 +53,7 @@ class Equipment extends Component {
       };
       if (isNaN(quantity)) {quantity = ""};
       return (
-        <ListGroupItem>
+        <ListGroupItem key={item.name}>
           <ListGroupItemHeading>
             <Badge pill>{quantity}</Badge> {item.name}
           </ListGroupItemHeading>
