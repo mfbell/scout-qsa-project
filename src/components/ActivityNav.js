@@ -5,7 +5,7 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 class ActivityNav extends Component {
   render() {
     return (
-      <Nav tabs>
+      <Nav tabs className="mt-4">
         <NavItem>
           <NavLink tag={RRNavLink} to="" activeClassName="active">View</NavLink>
         </NavItem>
