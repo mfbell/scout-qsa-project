@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 import ActivityNav from './ActivityNav.js';
 import Image from './Image.js';
+import Instructions from './Instructions.js';
 import Equipment from './Equipment.js';
 import RiskAssessment from './ActivityRiskAssessement.js'
+import { Loading } from './Errors.js'
+
+import activityImage from '../temp-imgs/bw-cooking.jpg'
 
 class Activity extends Component {
   constructor(props) {
@@ -21,7 +25,7 @@ class Activity extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api/activity/${this.props.match.params.slug}`)
+  /*  fetch(`/api/activity/${this.props.match.params.slug}`)
     .then(res => res.json())
     .then(
       (result) => {
@@ -37,35 +41,73 @@ class Activity extends Component {
         });
       }
     );
-  }
-
-  render() {
-    let equipment = [
+  }*/
+  let activity = {
+    title: "Campfire pancakes",
+    updated: new Date(),
+    contributors: [
+      "Max Bell", 
+      "Alex North"
+    ],
+    image: activityImage,
+    alt: "1st Ivybridge Victoria Scout Troop cooking sausages in the woods",
+    description: "In patrols, Scouts build small cooking fires in the woods which they use to cook pancakes on.",
+    instructions: [
+      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+      "Aliquam tincidunt mauris eu risus.",
+      "Vestibulum auctor dapibus neque.",
+      "Nunc dignissim risus id metus.",
+      "Cras ornare tristique elit.",
+      "Vivamus vestibulum ntulla nec ante.",
+      "Praesent placerat risus quis eros.",
+      "Fusce pellentesque suscipit nibh.",
+      "Integer vitae libero ac risus egestas placerat.",
+      "Vestibulum commodo felis quis tortor.",
+      "Ut aliquam sollicitudin leo.",
+      "Cras iaculis ultricies nulla.",
+      "Donec quis dui at dolor tempor interdum."
+    ],
+    equipment: [
       {name: "Broom handles", quantity: 5, per: "scout"},
       {name: "Bean bags", quantity: 1, per: "scout"},
       {name: "meters of tape", quantity: 4, per: "patrol"},
       {name: "bandages", quantity: 2, per: "troop"},
       {name: "regrets", quantity: 7, per: "patrol"}
-    ];
-    let main = <main />
+    ],
+    riskAssessment: null
+  };
+  this.setState({
+    isLoaded: true, 
+    activity
+  });
+  }
+
+  render() {
+    if (!this.state.isLoaded) {return <Loading />};
     return (
       <Container>
         <ActivityNav />
-        <heading>
-          <h1>{this.props.match.params.slug}</h1>
-          <p class="text-secondary"><i class="material-icons">update</i> 19th Sept 2018 <i class="material-icons">person</i> Max Bell, John Smith</p>
-          <Image src="/imgs/bw-cooking.jpg" alt="1st Ivybridge Victoria Scout Troop cooking sausages in the woods" />
-        </heading>
-        <main>
-          <p class="lead">In patrols, Scouts build small cooking fires in the woods which they use to cook pancakes on.</p>
-          <h2>Instructions</h2>
-          <p>Vestibulum volutpat fermentum justo et dictum. Quisque rhoncus turpis ac elit scelerisque imperdiet. In eget tellus mauris. Donec hendrerit mi et scelerisque semper. Cras pulvinar elementum laoreet. Donec fermentum, magna eget feugiat efficitur, metus libero elementum arcu, sagittis blandit odio ligula id ligula. Proin massa mauris, finibus a mauris a, imperdiet tincidunt ante. Maecenas aliquam ut magna tempus accumsan. Curabitur erat diam, placerat quis metus quis, hendrerit congue neque. Nullam commodo sapien et sem fermentum, sit amet vestibulum augue aliquet. Nam eros lacus, egestas ut sodales eu, sollicitudin a justo. In sapien tellus, egestas ac mauris et, mattis malesuada mauris. Nulla diam justo, ultricies ac consectetur ac, fringilla nec ipsum. Cras ac blandit risus, id volutpat lacus. Duis et diam ligula. Phasellus eu nisi vitae tellus pharetra egestas.</p>
-          <Equipment equipment={equipment} />
-          <RiskAssessment />
-        </main>
+        <Row>
+          <Col lg={8}>
+            <header>
+              <h1>{this.state.activity.title}</h1>
+              <p className="text-secondary"><i className="material-icons">update</i> {this.state.activity.updated.toString()} <i className="material-icons">person</i> {this.state.activity.contributors.join()}</p>
+              <Image src={this.state.activity.image} alt={this.state.activity.alt} />
+            </header>
+            <main>
+              <p className="lead">{this.state.activity.description}</p>
+              <Instructions instructions={this.state.activity.instructions} />
+              <Equipment equipment={this.state.activity.equipment}/>
+              <RiskAssessment />
+            </main>
+          </Col>
+          <Col lg={4}>
+            Side content
+          </Col>
+        </Row>
       </Container>
     );
-  }
+  };
 }
 
 function Create() {
