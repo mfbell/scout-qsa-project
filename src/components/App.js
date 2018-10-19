@@ -9,15 +9,15 @@ import { Me } from './User.js'
 import { Activity, Create } from './Activity.js';
 import Blog from './Blog.js'
 import { NoMatch } from './Errors.js';
+import Test from './Test.js'
 
 class App extends Component {
   render() {
-    return (
-      <Router>
+    function contentRoutes(props) {
+      return (
         <>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Home} />
             <Route path="/about-us" component={AboutUs} />
             <Route path="/sign-in" component={SignIn} />
             <Route path="/sign-up" component={SignUp} />
@@ -30,6 +30,17 @@ class App extends Component {
           </Switch>
           <Footer />
         </>
+      );
+    }
+    return (
+      <Router>
+        <Switch>
+          {/* Special pages */}
+          <Route exact path="/" component={Home} />
+          <Route path="/test" component={Test} />
+          {/* Content pages */}
+          <Route component={contentRoutes} />
+        </Switch>
       </Router>
     );
   }
