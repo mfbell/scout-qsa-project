@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+
+import '../scss/loader.css';
 
 function NoMatch() {
   return (
@@ -13,4 +15,8 @@ function NoMatch() {
   )
 }
 
-export { NoMatch };
+function Loading() {
+  return (<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>)
+}
+
+export { NoMatch, Loading };
