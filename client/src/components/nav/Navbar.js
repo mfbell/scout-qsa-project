@@ -31,15 +31,18 @@ class Navbar extends Component {
   }
 
   render() {
+    let search = this.props.noSearch ? undefined: (
+      <Form>
+        <Input type="search" placeholder="Explorer - Discover - Share" />
+      </Form>
+    );
     return (
       <RSNavBar expand="sm" {...this.props} light>
         <Container>
           <NavbarBrand to="/" tag={RRNavLink} exact>SABD</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Form>
-              <Input type="search" placeholder="Explorer - Discover - Share" />
-            </Form>
+            {search}
             <Nav className="ml-auto" navbar>
               <NavbarItems />
             </Nav>
