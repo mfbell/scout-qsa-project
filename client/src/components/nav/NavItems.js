@@ -13,7 +13,7 @@ function GenNavLink(props) {
 function GenNavButton(props) {
   return (
     <NavItem>
-      <NavLink onClick={props.onClick} className={props.className}>{props.children}</NavLink>
+      <NavLink href="#" onClick={props.onClick} className={props.className}>{props.children}</NavLink>
     </NavItem>
   )
 }
