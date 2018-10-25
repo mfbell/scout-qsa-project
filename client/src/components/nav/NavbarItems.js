@@ -25,9 +25,12 @@ const NavbarItems = withAuth(class NavbarItems extends Component {
     this.checkAuthentication();
   }
 
-  async login() {
+  async login(e) {
     // Redirect to '/' after login
+    e.preventDefault();
+    console.log("Logging in")
     this.props.login('/');
+    console.log("Logged in")
   }
 
   async logout() {
