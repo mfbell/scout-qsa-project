@@ -1,5 +1,5 @@
 const express = require('express');
-import * as users from '../controllers/users';
+const users = require('../controllers/users');
 
 const isSelf;
 
@@ -11,4 +11,4 @@ router.route('/:id')
   .put(isSelf, users.update)
   .delete(isSelf, users.remove);
 
-return router;
+module.exports = router

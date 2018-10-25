@@ -1,5 +1,5 @@
 const express = require('express');
-import * as riskAssessments from '../controllers/risk-assessments';
+const riskAssessments = require('../controllers/risk-assessments');
 
 const isAuthed, isAdmin;
 
@@ -11,4 +11,4 @@ router.route('/:id')
   .put(isAuthed, riskAssessments.update)
   .delete(isAdmin, riskAssessments.remove);
 
-return router;
+module.exports = router

@@ -1,10 +1,10 @@
 const express = require('express');
-import path from 'path';
+const path = require('path');
 
-import acitivtiesRouter from './activities';
-import riskAssessmentRouter from './risk-assessments';
-import usersRouter from './users';
-import authRouter from './auth';
+const acitivtiesRouter = require('./activities');
+const riskAssessmentRouter = require('./risk-assessments');
+const usersRouter = require('./users');
+const authRouter = require('./auth');
 
 router = express.Router()
 
@@ -22,4 +22,4 @@ router.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '../../client/build/index.html'));
 });
 
-export default router;
+module.exports = router

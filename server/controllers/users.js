@@ -13,4 +13,10 @@ function remove(req, res) {
 function search(req, res) {
 }
 
-export { get, create, update, remove, search };
+module.exports = {
+  get,
+  create,
+  update,
+  remove,
+  search
+}

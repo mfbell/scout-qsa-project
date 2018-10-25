@@ -1,5 +1,5 @@
 const express = require('express');
-import * as activities from '../controllers/activities';
+const activities = require('../controllers/activities');
 
 const isAuthed, isAdmin;
 
@@ -11,4 +11,4 @@ router.route('/:id')
   .put(isAuthed, activities.update)
   .delete(isAdmin, activities.remove);
 
-return router;
+module.exports = router

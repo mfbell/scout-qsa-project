@@ -1,6 +1,6 @@
 const express = require('express');
-import helmet from 'helmet';
-import router from './routes';
+const helmet = require('helmet');
+const router = require('./routes');
 
 const app = express();
 const port = process.env.PORT || 5000;
