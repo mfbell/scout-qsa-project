@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert } from 'reactstrap';
 
 import '../scss/loader.css';
 
@@ -16,7 +17,19 @@ function NoMatch() {
 }
 
 function Loading() {
-  return (<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>)
+  return (<div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>)
 }
 
-export { NoMatch, Loading };
+function Errors(props) {
+  let errors = props.errors.map((error, index) => {
+    return (
+      <Alert color="danger" key={index}>
+        <h3>{error.name}</h3>
+        <p>{error.message}</p>
+      </Alert>
+    );
+  })
+  return <div>{errors}</div>
+}
+
+export { NoMatch, Loading, Errors };
