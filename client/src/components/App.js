@@ -5,10 +5,10 @@ import { Security, ImplicitCallback } from '@okta/okta-react';
 import Navbar from './nav/Navbar';
 import Footer from './nav/Footer';
 import Home from './Home';
-import AboutUs from './AboutUs';
+import AboutUs from './info/AboutUs';
 import { SignIn, SignUp } from './Auth';
 import { Me } from './User.js'
-import { Activity, Create } from './Activity';
+import { Activity, Create } from './activity/Activity';
 import Blog from './Blog'
 import { NoMatch } from './Errors';
 import Test from './Test'
