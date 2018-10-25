@@ -1,13 +1,19 @@
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
+const morgan = require('morgan')
+
 const router = require('./routes');
+
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(morgan('combined'))
 app.use(helmet());
-// CSRF/csurf??
+app.use(cors());
+app.disable('x-powered-by')
 
 app.use(router);
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+app.listen(port, () => console.log(`Express server listening on port ${port}`));
