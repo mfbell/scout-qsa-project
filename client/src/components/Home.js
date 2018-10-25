@@ -18,7 +18,7 @@ class Home extends Component {
     }
     return (
       <>
-      <Navbar />
+      <Navbar noSearch />
       <Container fluid tag="main" className="full-height" style={backgroundStyle}>
         <Row className="d-flex align-items-center full-height">
           <Col sm={1} md={2} lg={3} />
@@ -27,7 +27,6 @@ class Home extends Component {
             <Input type="search" className="bg-transparent text-white" placeholder="Explorer – Discover – Share" autoFocus />
           </Col>
           <Col sm={1} md={2} lg={3} />
-          <span className="position-absolute fixed-bottom text-muted font-weight-light m-3">Photo by Billy Pasco on Unsplash</span>
         </Row>
       </Container>
       <Footer />
