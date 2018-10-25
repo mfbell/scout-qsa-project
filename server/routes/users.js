@@ -1,14 +1,14 @@
 const express = require('express');
-import * as Users from '../controllers/users';
+import * as users from '../controllers/users';
 
 const isSelf;
 
 const router = express.Router();
 router.route('')
-  .post(Users.create);
+  .post(users.create);
 router.route('/:id')
-  .get(isSelf, Users.get)
-  .put(isSelf, Users.update)
-  .delete(isSelf, Users.remove);
+  .get(isSelf, users.get)
+  .put(isSelf, users.update)
+  .delete(isSelf, users.remove);
 
 return router;

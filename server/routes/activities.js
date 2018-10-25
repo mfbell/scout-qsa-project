@@ -1,14 +1,14 @@
 const express = require('express');
-import * as Activities from '../controllers/activities';
+import * as activities from '../controllers/activities';
 
 const isAuthed, isAdmin;
 
 const router = express.Router();
 router.route('')
-  .post(isAuthed, Activities.create);
+  .post(isAuthed, activities.create);
 router.route('/:id')
-  .get(Activities.get)
-  .put(isAuthed, Activities.update)
-  .delete(isAdmin, Activities.remove);
+  .get(activities.get)
+  .put(isAuthed, activities.update)
+  .delete(isAdmin, activities.remove);
 
 return router;

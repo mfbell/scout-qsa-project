@@ -1,14 +1,14 @@
 const express = require('express');
-import * as RiskAssessments from '../controllers/risk-assessments';
+import * as riskAssessments from '../controllers/risk-assessments';
 
 const isAuthed, isAdmin;
 
 const router = express.Router();
 router.route('')
-  .post(isAuthed, RiskAssessments.create);
+  .post(isAuthed, riskAssessments.create);
 router.route('/:id')
-  .get(RiskAssessments.get)
-  .put(isAuthed, RiskAssessments.update)
-  .delete(isAdmin, RiskAssessments.remove);
+  .get(riskAssessments.get)
+  .put(isAuthed, riskAssessments.update)
+  .delete(isAdmin, riskAssessments.remove);
 
 return router;

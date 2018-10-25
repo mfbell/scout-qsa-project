@@ -1,6 +1,10 @@
 const express = require('express');
 import path from 'path';
-import resourceRouter from './resources';
+
+import acitivtiesRouter from './activities';
+import riskAssessmentRouter from './risk-assessments';
+import usersRouter from './users';
+import authRouter from './auth';
 
 router = express.Router()
 
@@ -8,7 +12,10 @@ router = express.Router()
 router.use(express.static(path.join(__dirname, 'client/build')));
 
 // Routes
-router.use('/api', resourceRouter);
+router.route('/api')
+  .use('/activities', acitivtiesRouter)
+  .use('/risk-assessments', riskAssessmentRouter)
+  .use('/users', usersRouter);
 
 // Let React app handle other paths
 router.get('*', (req, res) => {
