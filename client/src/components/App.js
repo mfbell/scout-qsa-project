@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { Security, ImplicitCallback } from '@okta/okta-react';
 
-import { Navbar, Footer } from './Nav.js';
-import Home from './Home.js';
-import AboutUs from './AboutUs.js';
-import { SignIn, SignUp } from './Auth.js';
+import Navbar from './nav/Navbar';
+import Footer from './nav/Footer';
+import Home from './Home';
+import AboutUs from './AboutUs';
+import { SignIn, SignUp } from './Auth';
 import { Me } from './User.js'
-import { Activity, Create } from './Activity.js';
-import Blog from './Blog.js'
-import { NoMatch } from './Errors.js';
-import Test from './Test.js'
+import { Activity, Create } from './Activity';
+import Blog from './Blog'
+import { NoMatch } from './Errors';
+import Test from './Test'
+
+
+const config = {
+  issuer: 'https://dev-430401.oktapreview.com/oauth2/default',
+  redirect_uri: window.location.origin + '/implicit/callback',
+  client_id: '0oagxbu0rvFjK13qd0h7'
+}
 
 class App extends Component {
   render() {
@@ -34,13 +43,21 @@ class App extends Component {
     }
     return (
       <Router>
-        <Switch>
-          {/* Special pages */}
-          <Route exact path="/" component={Home} />
-          <Route path="/test" component={Test} />
-          {/* Content pages */}
-          <Route component={contentRoutes} />
-        </Switch>
+        <Security 
+          issuer={config.issuer}
+          client_id={config.client_id}
+          redirect_uri={config.redirect_uri}
+          className="full-height"
+        >
+          <Switch>
+            {/* Special pages */}
+            <Route exact path="/" component={Home} />
+            <Route path="/test" component={Test} />
+            <Route path='/implicit/callback' component={ImplicitCallback}/>
+            {/* Content pages */}
+            <Route component={contentRoutes} />
+          </Switch>
+        </Security>
       </Router>
     );
   }
