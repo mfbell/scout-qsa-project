@@ -12,6 +12,12 @@
   },
   "author": "Max Bell",
   "dependencies": {
+    "@types/cors": "^2.8.4",
+    "@types/es6-shim": "^0.31.38",
+    "@types/express": "^4.16.0",
+    "@types/helmet": "0.0.42",
+    "@types/morgan": "^1.7.35",
+    "@types/passport": "^0.4.7",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
