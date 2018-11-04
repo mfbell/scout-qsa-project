@@ -1,4 +1,6 @@
-function get(req, res) {
+import { Request, Response } from 'express';
+
+function get(req: Request, res: Response) {
   let activity = {
     title: "Campfire pancakes",
     updated: new Date(),
@@ -36,22 +38,22 @@ function get(req, res) {
   res.status(200).json(activity)
 }
 
-function create(req, res) {
+function create(req: Request, res: Response) {
 }
 
-function update(req, res) {
+function update(req: Request, res: Response) {
 }
 
-function remove(req, res) {
+function remove(req: Request, res: Response) {
 }
 
-function search(req, res) {
+function search(req: Request, res: Response) {
 }
 
-module.exports = {
+export {
   get,
   create,
   update,
   remove,
   search
-}
+};
