@@ -18,35 +18,47 @@ const userSchema = new Schema({
     lowercase: true,
     validate: (value: string) => validator.isEmail(value)
   },
-  hash: String,
-  salt: String,
-  publicID: UUID,
+  password: {
+    hash: String,
+    salt: String,
+  },
+  publicId: UUID,
   name: {
     first: String,
     last: String
   },
-  oauths: [{
-    type: Schema.Types.ObjectId,
-    ref: 'OAuth'
-  }]
+  facebook: {
+    accessToken: String,
+    refreshToken: String,
+    id: String,
+    // Need to auto added
+    dateAdded: Date
+  },
+  twitter: {
+    token: String, 
+    tokenSecret: String,
+    id: String,
+    // Need to auto added
+    dateAdded: Date
+  }
 });
 
 userSchema.methods = {
   setPassword(password: string) {
-    this.salt = crypto.randomBytes(HASHLEN).toString('hex');
-    crypto.pbkdf2(password, this.salt, ITERATIONS, KEYLEN, DIGEST, 
+    this.password.salt = crypto.randomBytes(HASHLEN).toString('hex');
+    crypto.pbkdf2(password, this.password.salt, ITERATIONS, KEYLEN, DIGEST, 
       (err: Error | null, hash: Buffer) => {
         if (err) throw err;
-        this.hash = hash.toString('hex');
+        this.password.hash = hash.toString('hex');
       }
     );
   },
 
   validatePassword(password: string) {
-    crypto.pbkdf2(password, this.salt, ITERATIONS, KEYLEN, DIGEST,
+    crypto.pbkdf2(password, this.password.salt, ITERATIONS, KEYLEN, DIGEST,
       (err: Error | null, hash: Buffer) => {
         if (err) throw err;
-        crypto.timingSafeEqual(this.hash, hash);
+        crypto.timingSafeEqual(this.password.hash, hash);
       }
     );
   },
