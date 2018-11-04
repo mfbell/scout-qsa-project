@@ -2,11 +2,11 @@ const User = require('../models/user')
 
 module.exports = {
   /**
-   * Get user by publicId 
-   * @param {Object} req express request object
-   * @param {Object} res express response object 
+   * Get user by res.params.publicId 
+   * @param {Request} req express request object
+   * @param {Response} res express response object 
    */
-  get(req, res) {
+  get(req: Request, res: Response) {
     User.findOne({ publicId: req.params.publicId })
       .then(user => res.status(200).json(user))
       .catch(err => {
