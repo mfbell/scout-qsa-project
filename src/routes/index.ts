@@ -1,9 +1,9 @@
-const express = require('express');
-const path = require('path');
+import { Router } from 'express';
+import path from 'path';
 
-const apiRouter = require('./api');;
+import apiRouter from './api';
 
-router = express.Router()
+const router: Router = Router()
 
 // Serve the static files from the React app
 //router.use(express.static(path.join(__dirname, 'client/build')));
@@ -17,4 +17,4 @@ router.use('/api', apiRouter)
  * });
  */
 
-module.exports = router
+export default router;

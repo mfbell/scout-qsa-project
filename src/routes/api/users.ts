@@ -1,7 +1,7 @@
-const express = require('express');
-const user = require('../../controllers/user');
+import { Router } from 'express';
+import user from '../../controllers/user';
 
-const router = express.Router();
+const router: Router = Router();
 
 router.route('')
   .post(user.create)
@@ -11,4 +11,4 @@ router.route('/:publicID')
   .put(user.update)
   .delete(user.remove);
 
-module.exports = router
+export default router;
