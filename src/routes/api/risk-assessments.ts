@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import riskAssessments from '../../controllers/risk-assessments';
+import * as riskAssessments from '../../controllers/risk-assessments';
 import { required } from '../../auth';
 
 const router: Router = Router();

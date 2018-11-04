@@ -8,7 +8,7 @@ import User from '../models/user';
   */
 function get(req: Request, res: Response) {
   User.findOne({ publicId: req.params.publicId })
-    .then((user: User) => res.status(200).json(user))
+    .then((user) => res.status(200).json(user))
     .catch((err: Error) => {
       res.status(404).end();
       console.error(err)

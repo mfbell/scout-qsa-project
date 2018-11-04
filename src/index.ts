@@ -6,7 +6,7 @@ import passport from 'passport';
 
 import router from './routes';
 
-const app = express();
+const app: express.Application = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
