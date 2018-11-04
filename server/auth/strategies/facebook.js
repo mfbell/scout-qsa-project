@@ -1,5 +1,6 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
+const callback = require('./oauth-callback');
 
 passport.use(new FacebookStrategy({
   // https://developers.facebook.com/docs/facebook-login/web
@@ -7,10 +8,5 @@ passport.use(new FacebookStrategy({
     clientSecret: null, // fill
     callbackURL: null // fill
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate(null /* user */, function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
-  }
+  callback
 ));
