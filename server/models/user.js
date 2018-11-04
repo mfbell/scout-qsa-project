@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     first: String,
     last: String
   },
+  oauths = [{
+    type: ObjectId,
+    ref: 'OAuth'
+  }]
 });
 
 userSchema.methods = {
