@@ -1,0 +1,9 @@
+http://www.passportjs.org/packages/
+https://github.com/hdngr/sriracha
+https://github.com/Automattic/mongoose
+https://mongoosejs.com/docs/faq.html
+https://restfulapi.net/security-essentials/
+https://medium.freecodecamp.org/introduction-to-mongoose-for-mongodb-d2a7aa593c57
+https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+https://sailsjs.com/documentation/reference/waterline-orm/datastores
+https://medium.freecodecamp.org/learn-how-to-handle-authentication-with-node-using-passport-js-4a56ed18e81e
