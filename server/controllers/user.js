@@ -1,8 +1,13 @@
 const User = require('../models/user')
 
 module.exports = {
+  /**
+   * Get user by publicId 
+   * @param {Object} req express request object
+   * @param {Object} res express response object 
+   */
   get(req, res) {
-    User.findOne({ publicID: req.params.publicID })
+    User.findOne({ publicId: req.params.publicId })
       .then(user => res.status(200).json(user))
       .catch(err => {
         res.status(404).end();
