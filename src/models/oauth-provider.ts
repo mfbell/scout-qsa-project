@@ -1,8 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema } from 'mongoose';
 
-const ObjectId = mongoose.Schema.Types.ObjectId;
-
-const OAuthSchema = new mongoose.Schema({
+const OAuthSchema = new Schema({
   provider: {
     type: String,
     required: true
@@ -16,13 +14,13 @@ const OAuthSchema = new mongoose.Schema({
     required: true
   },
   user: {
-    type: ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User'
   },
   dateAdded: {
     type: Date,
-    default: new Date.now
+    default: new Date
   }
 });
 
-module.exports = mongoose.model('OAuth', OAuthSchema);
+export default mongoose.model('OAuth', OAuthSchema);
