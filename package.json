@@ -7,7 +7,8 @@
     "start": "node server",
     "client": "cd client && npm start",
     "server": "nodemon --ignore client/ server",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "tsc": "tsc"
   },
   "author": "Max Bell",
   "dependencies": {
@@ -23,6 +24,7 @@
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
+    "typescript": "^3.1.6",
     "uuid-mongodb": "^1.0.2",
     "validator": "^10.8.0"
   },
