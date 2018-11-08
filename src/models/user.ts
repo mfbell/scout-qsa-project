@@ -1,22 +1,23 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import validator from 'validator';
 
-import { UUID } from './custom-properties';
+import UUID from './properties/uuid';
+import IUser from '../interfaces/user';
 
 const HASHLEN = 128;
 const ITERATIONS = 1000;
 const KEYLEN = 512;
 const DIGEST = 'sha512';
 
-const userSchema = new Schema({
+export const userSchema = new Schema({
   email: {
     type: String,
     required: true,
     unique: true,
     lowercase: true,
-    validate: (value: string) => validator.isEmail(value)
+    validate: validator.isEmail
   },
   password: {
     hash: String,
@@ -43,6 +44,19 @@ const userSchema = new Schema({
   }
 });
 
+type AuthJSON = {
+  _id: Schema.Types.ObjectId,
+  email: string,
+  token: string
+}
+
+export interface IUserModel extends IUser, Document {
+  setPassword(password: string): void,
+  validatePassword(password: string): boolean,
+  generateJWT(): string,
+  toAuthJSON(): AuthJSON
+}
+
 userSchema.methods = {
   setPassword(password: string) {
     this.password.salt = crypto.randomBytes(HASHLEN).toString('hex');
@@ -58,7 +72,7 @@ userSchema.methods = {
     crypto.pbkdf2(password, this.password.salt, ITERATIONS, KEYLEN, DIGEST,
       (err: Error | null, hash: Buffer) => {
         if (err) throw err;
-        crypto.timingSafeEqual(this.password.hash, hash);
+        return crypto.timingSafeEqual(this.password.hash, hash);
       }
     );
   },
@@ -76,7 +90,7 @@ userSchema.methods = {
   },
 
   toAuthJSON() {
-    return {
+    return <AuthJSON>{
       _id: this._id,
       email: this.email,
       token: this.generateJWT(),
@@ -84,4 +98,4 @@ userSchema.methods = {
   }
 };
 
-export default model('User', userSchema);
+export default model<IUserModel>('User', userSchema);
