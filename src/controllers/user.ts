@@ -19,7 +19,7 @@ function create(req: Request, res: Response) {
   user.save()
     .then((user) => {
       res.location(`/api/users/${user.publicId}`);
-      res.status(200).json({token: user.toAuthJSON.token});
+      res.status(200).json({token: user.toAuthJSON().token});
     })
     .catch((err: Error) => {
       res.status(400).end()
