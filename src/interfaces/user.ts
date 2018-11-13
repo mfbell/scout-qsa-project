@@ -1,8 +1,10 @@
-export default interface IUser {
+export default interface User {
   email: string,
   password?: {
     hash: string,
     salt: string,
+    resetToken?: string,
+    resetExpires?: Date,
   },
   publicId: string,
   name?: {

@@ -4,8 +4,9 @@ import jwt from 'jsonwebtoken';
 import validator from 'validator';
 
 import UUID from './properties/uuid';
-import IUser from '../interfaces/user';
+import User from '../interfaces/user';
 
+// Crypto settings
 const HASHLEN = 128;
 const ITERATIONS = 1000;
 const KEYLEN = 512;
@@ -16,12 +17,13 @@ export const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    lowercase: true,
     validate: validator.isEmail
   },
   password: {
     hash: String,
     salt: String,
+    resetToken: UUID,
+    resetExpires: Date,
   },
   publicId: UUID,
   name: {
@@ -44,32 +46,37 @@ export const userSchema = new Schema({
   }
 });
 
-type AuthJSON = {
-  _id: Schema.Types.ObjectId,
-  email: string,
-  token: string
+class AuthJSON {
+  constructor(
+    public id: string,
+    public email: string,
+    public token: string
+  ) {}
 }
 
-export interface IUserModel extends IUser, Document {
+export interface UserModel extends User, Document {
   setPassword(password: string): void,
   validatePassword(password: string): boolean,
   generateJWT(): string,
   toAuthJSON(): AuthJSON
 }
 
-userSchema.methods = {
-  setPassword(password: string) {
+userSchema.methods.setPassword = 
+  function setPassword(password: string): void {
     this.password.salt = crypto.randomBytes(HASHLEN).toString('hex');
-    crypto.pbkdf2(password, this.password.salt, ITERATIONS, KEYLEN, DIGEST, 
+    crypto.pbkdf2(
+      password, this.password.salt, ITERATIONS, KEYLEN, DIGEST, 
       (err: Error | null, hash: Buffer) => {
         if (err) throw err;
         this.password.hash = hash.toString('hex');
       }
     );
-  },
+}
 
-  validatePassword(password: string) {
-    crypto.pbkdf2(password, this.password.salt, ITERATIONS, KEYLEN, DIGEST,
+userSchema.methods.validatePassword = 
+  function validatePassword(password: string) {
+    crypto.pbkdf2(
+      password, this.password.salt, ITERATIONS, KEYLEN, DIGEST,
       (err: Error | null, hash: Buffer) => {
         if (err) throw err;
         return crypto.timingSafeEqual(this.password.hash, hash);
@@ -77,25 +84,20 @@ userSchema.methods = {
     );
   },
 
-  generateJWT() {
-    const today: Date = new Date();
-    const expirationDate = new Date(today.getTime());
-    expirationDate.setDate(today.getDate() + 60);
-  
+userSchema.methods.generateJWT = function generateJWT() {
+    const today = new Date();
+    const expirationDate = new Date(today.getTime() + 60);  
     return jwt.sign({
-      email: this.email,
-      id: this._id,
-      exp: parseInt((expirationDate.getTime() / 1000).toString(), 10)
-    }, 'secret');
+        email: this.email,
+        id: this.id,
+        exp: parseInt((expirationDate.getTime() / 1000).toString(), 10)
+      }, 
+      'secret'
+    );
   },
 
-  toAuthJSON() {
-    return <AuthJSON>{
-      _id: this._id,
-      email: this.email,
-      token: this.generateJWT(),
-    };
-  }
+userSchema.methods.toAuthJSON = function toAuthJSON() {
+  return new AuthJSON(this.id, this.email, this.generateJWT());
 };
 
-export default model<IUserModel>('User', userSchema);
+export default model<UserModel>('User', userSchema);
