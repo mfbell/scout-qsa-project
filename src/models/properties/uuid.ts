@@ -29,11 +29,10 @@ export function bsonUuid() {
   return new Binary(uuid, Binary.SUBTYPE_UUID);
 }
 
-export default {
-  type: Buffer,
-  unique: true,
-  required: true,
-  default: bsonUuid,
-  set: parse,
+export default { 
+  unique: true, 
+  required: true, 
+  default: bsonUuid, 
+  set: parse, 
   get: unparse
 }
