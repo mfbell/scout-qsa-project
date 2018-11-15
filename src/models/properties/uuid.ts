@@ -29,10 +29,10 @@ export function bsonUuid() {
   return new Binary(uuid, Binary.SUBTYPE_UUID);
 }
 
-export default { 
+export const uuidProps = { 
   unique: true, 
   required: true, 
-  default: bsonUuid, 
-  set: parse, 
-  get: unparse
+  default: bsonUuid
 }
+
+export default { validate, parse, unparse, bsonUuid, uuidProps }
