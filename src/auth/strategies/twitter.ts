@@ -2,7 +2,7 @@ import { Profile, use } from 'passport';
 import { Strategy } from 'passport-twitter';
 
 import User from '../../models/user';
-import profileNormaliser from './profileNormaliser';
+import normaliseProfile from './normaliseProfile';
 
 use(new Strategy({
     // https://developer.twitter.com/en/docs/twitter-for-websites/log-in-with-twitter/guides/browser-sign-in-flow
@@ -13,17 +13,16 @@ use(new Strategy({
   async function(token: string, tokenSecret: string, profile: Profile, done) {
     try {
       // Find user if they exist
-      var user: User = await User.findOne( 
+      var user = await User.findOne( 
         { twitter: { id: profile.id } } ).exec();
       if (!user) {
         // Create user
         user = new User({
-          ...profileNormaliser(profile),
+          ...normaliseProfile(profile),
           twitter: {
             token,
             tokenSecret,
-            id: profile.id,
-            dateAdded: new Date()
+            id: profile.id
           }
         });
         user.save();

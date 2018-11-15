@@ -10,8 +10,8 @@ use(new Strategy({
   async function(email: string, password: string, done) {
     try {
       var user = await User.findOne({ email }).exec()
-      if (!user || !user.validatePassword(password)) {
-        return done(null, false, { message: 'Email or password is invalid' });
+      if (!user || !user.password || !user.password.validate(password)) {
+        return done(null, false, { message: 'Invalid email or password' });
       }
       return done(null, user);
     } 
