@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import User from '../models/user';
-import { controller } from './controller';
+import User from '../models/user/user';
 
-const get: controller = function get(req, res) {
+function get(req: Request, res: Response) {
   User.findOne({ publicId: req.params.publicId })
     .then((user) => res.status(200).json(user))
     .catch((err: Error) => {
@@ -15,10 +14,10 @@ function create(req: Request, res: Response) {
   const user = new User({
     email: req.body.email
   });
-  user.setPassword(req.body.password);
+  user.password.set(req.body.password);
   user.save()
     .then((user) => {
-      res.location(`/api/users/${user.publicId}`);
+      res.location(`/api/users/${user.id}`);
       res.status(200).json({token: user.toAuthJSON().token});
     })
     .catch((err: Error) => {
