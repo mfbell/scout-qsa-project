@@ -1,51 +1,61 @@
-import { Schema, model, Document } from 'mongoose';
-import crypto from 'crypto';
-import jwt from 'jsonwebtoken';
-import validator from 'validator';
+import { prop, Typegoose, instanceMethod } from 'typegoose';
+import UuidProps from './properties/uuid';
+import bcrypt from 'bcrypt';
+//import jwt from 'jsonwebtoken';
 
-import UUID from './properties/uuid';
-import User from '../interfaces/user';
+// Bcrypt settings
+const saltRounds = 10;
 
-// Crypto settings
-const HASHLEN = 128;
-const ITERATIONS = 1000;
-const KEYLEN = 512;
-const DIGEST = 'sha512';
+const required = true;
+const unique = true;
 
-export const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    validate: validator.isEmail
-  },
-  password: {
-    hash: String,
-    salt: String,
-    resetToken: UUID,
-    resetExpires: Date,
-  },
-  publicId: UUID,
-  name: {
-    first: String,
-    last: String
-  },
-  facebook: {
-    accessToken: String,
-    refreshToken: String,
-    id: String,
-    // Need to auto added
-    dateAdded: Date
-  },
-  twitter: {
-    token: String, 
-    tokenSecret: String,
-    id: String,
-    // Need to auto added
-    dateAdded: Date
+class Password {
+  @prop({ required })
+  hash!: string;
+  @prop(UuidProps)
+  resetToken?: Buffer;
+  @prop({ default: Date })
+  resetExpires?: Date;
+
+  @instanceMethod
+  async set(password: string): Promise<void> {
+    this.hash = await bcrypt.hash(password, saltRounds);
   }
-});
 
+  @instanceMethod
+  async validate(password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this.hash);
+  }
+}
+
+export class Name {
+  @prop({ required })
+  first!: string;
+  @prop()
+  last?: string;
+}
+
+class OAuth {
+  @prop({ required })
+  id!: String;
+  @prop({ required, default: Date })
+  dateAdded!: Date;
+}
+
+class Facebook extends OAuth {
+  @prop({ required })
+  accessToken!: string;
+  @prop({ required })
+  refreshToken!: string;
+}
+
+class Twitter extends OAuth {
+  @prop({ required })
+  token!: string;
+  @prop({ required })
+  tokenSecret!: string;
+}
+/*
 class AuthJSON {
   constructor(
     public id: string,
@@ -53,38 +63,27 @@ class AuthJSON {
     public token: string
   ) {}
 }
-
-export interface UserModel extends User, Document {
-  setPassword(password: string): void,
-  validatePassword(password: string): boolean,
-  generateJWT(): string,
-  toAuthJSON(): AuthJSON
-}
-
-userSchema.methods.setPassword = 
-  function setPassword(password: string): void {
-    this.password.salt = crypto.randomBytes(HASHLEN).toString('hex');
-    crypto.pbkdf2(
-      password, this.password.salt, ITERATIONS, KEYLEN, DIGEST, 
-      (err: Error | null, hash: Buffer) => {
-        if (err) throw err;
-        this.password.hash = hash.toString('hex');
-      }
-    );
-}
-
-userSchema.methods.validatePassword = 
-  function validatePassword(password: string) {
-    crypto.pbkdf2(
-      password, this.password.salt, ITERATIONS, KEYLEN, DIGEST,
-      (err: Error | null, hash: Buffer) => {
-        if (err) throw err;
-        return crypto.timingSafeEqual(this.password.hash, hash);
-      }
-    );
-  },
-
-userSchema.methods.generateJWT = function generateJWT() {
+*/
+export class User extends Typegoose {
+  @prop({
+    required,
+    unique,
+    validate: validator.isEmail
+  })
+  email!: string;
+  @prop()
+  password?: Password;
+  @prop(UuidProps)
+  publicId!: Buffer;
+  @prop()
+  name?: Name;
+  @prop()
+  facebook?: Facebook;
+  @prop()
+  twitter?: Twitter;
+/*
+  @instanceMethod
+  generateJWT() {
     const today = new Date();
     const expirationDate = new Date(today.getTime() + 60);  
     return jwt.sign({
@@ -94,10 +93,12 @@ userSchema.methods.generateJWT = function generateJWT() {
       }, 
       'secret'
     );
-  },
+  }
 
-userSchema.methods.toAuthJSON = function toAuthJSON() {
-  return new AuthJSON(this.id, this.email, this.generateJWT());
-};
+  @instanceMethod
+  toAuthJSON() {
+    return new AuthJSON(this.id, this.email, this.generateJWT());
+  }*/
+}
 
-export default model<UserModel>('User', userSchema);
+export default new User().getModelForClass(User);
