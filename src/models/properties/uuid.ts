@@ -3,25 +3,20 @@ import uuidv4 from 'uuid/v4';
 import { isUUID } from 'validator';
 
 export function validate(uuid: string, strong: boolean = true) {
-  if (!isUUID(uuid, 4)) {
-    if (strong) throw Error(`Invalid UUID.`);
-    return false;
-  } 
-  return true;
+  const pattern = /^[0-9A-F]{12}4[0-9A-F]{3}[89AB][0-9A-F]{15}$/i
+  if (pattern.test(uuid)) return true;
+  if (strong) throw Error(`Invalid UUID.`);
+  return false;
 }
 
 export function parse(uuid: string) {
   uuid = uuid.toLowerCase()
   validate(uuid)
-  uuid = uuid.replace(/-/g, '')
   return new Binary(Buffer.from(uuid, 'hex'), Binary.SUBTYPE_UUID)
 }
 
 export function unparse(binaryUuid: Binary) {
-  const positions = [[0, 4], [4, 6], [6, 8], [8, 10], [10, 16]]
-  return positions.map(pos => {
-    binaryUuid.read(pos[0], pos[1]).toString('hex')
-  }).join('-');
+  return binaryUuid.buffer.toString('hex')
 }
 
 export function bsonUuid() {
