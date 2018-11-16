@@ -1,16 +1,14 @@
 import { prop, Typegoose, instanceMethod } from 'typegoose';
-import { Document } from 'mongoose';
-import { Binary } from 'mongodb';
 
 import jwt from 'jsonwebtoken';
 
 import { Password, Facebook, Twitter } from './authentication'
-import * as uuid from '../properties/uuid';
+import UuidId from '../properties/uuid-id';
 
 const required = true;
 const unique = true;
 
-export class Name {
+export class Name extends Typegoose {
   @prop({ required })
   first!: string;
   @prop()
@@ -25,13 +23,7 @@ class AuthJSON {
   ) {}
 }
 
-export class User extends Typegoose {
-  @prop({ 
-    required, 
-    unique, 
-    default: uuid.bsonUuid 
-  })
-  _id!: Binary;
+export class User extends UuidId {
   @prop({
     required,
     unique,
@@ -46,14 +38,6 @@ export class User extends Typegoose {
   facebook?: Facebook;
   @prop()
   twitter?: Twitter;
-
-  @prop()
-  get id() {
-    return uuid.unparse(this._id)
-  }
-  set id(stringUuid) {
-    this._id = uuid.parse(stringUuid);
-  }
 
   @instanceMethod
   generateJWT() {
