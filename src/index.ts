@@ -1,3 +1,4 @@
+import https from 'https';
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -6,18 +7,39 @@ import passport from 'passport';
 
 import router from './routes';
 
-const app: express.Application = express();
-const port = process.env.PORT || 5000;
+export default class Server {
+  app: express.Application;
+  port: number | string;
 
-// Middleware
-app.use(morgan('combined'))
-app.use(helmet());
-app.use(cors());
-app.use(passport.initialize());
-app.disable('x-powered-by')
+  constructor() {
+    this.port = process.env.PORT || 5000;
 
-// Routes
-app.use(router);
+    this.app = express();
+  }
 
-// Serve
-app.listen(port, () => console.log(`Express server listening on port ${port}`));
+  configure() {
+    this.app.use(morgan('combined'))
+    this.app.use(helmet());
+    this.app.use(cors());
+    this.app.use(passport.initialize());
+    this.app.disable('x-powered-by')
+  }
+
+  mountRoutes() {
+    this.app.use(router);
+  }
+
+  listen() {
+    this.app.listen(
+      this.port, 
+      () => console.log(`Express server listening on port ${this.port}`)
+    );
+    // https.createServer({}, this.app).listen(443)
+  }
+
+  start() {
+    this.configure()
+    this.mountRoutes()
+    this.listen()
+  }
+}
