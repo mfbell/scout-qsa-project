@@ -2,18 +2,16 @@ let mongoose = require('mongoose');
 
 mongoose.promise = global.Promise;
 
-export default async function connect(
-  server: string = 'localhost',
-  port: string = '27017',
-  database: string = 'test'
-) {
+export default async function connect(uri: string) {
   try {
-    await mongoose.connect(`mongodb://${server}:${port}/${database}`);
+    await mongoose.connect(uri);
     console.log('Successfully connected to the database');
   } catch(err) {
     console.error('Error connecting to the database');
     console.error(err);
     throw err;
   }
+
+  // May need to import all models???
 }
 
