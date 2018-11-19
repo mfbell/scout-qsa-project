@@ -1,2 +1,2 @@
-export * from './password';
+export { default } from './password';
 export * from './oauth';
