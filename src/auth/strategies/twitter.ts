@@ -2,7 +2,7 @@ import { Profile, use } from 'passport';
 import { Strategy } from 'passport-twitter';
 
 import User from '../../models/user';
-import normaliseProfile from './normaliseProfile';
+import normaliseProfile from './profile-normaliser';
 
 use(new Strategy({
     // https://developer.twitter.com/en/docs/twitter-for-websites/log-in-with-twitter/guides/browser-sign-in-flow

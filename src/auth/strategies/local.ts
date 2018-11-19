@@ -5,7 +5,8 @@ import User from '../../models/user';
 
 use(new Strategy({
     usernameField: 'email',
-    passwordField: 'password'
+    passwordField: 'password',
+    session: false
   },
   async function(email: string, password: string, done) {
     try {

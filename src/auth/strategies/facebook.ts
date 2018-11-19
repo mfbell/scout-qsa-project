@@ -2,7 +2,7 @@ import { Strategy } from 'passport-facebook';
 import { Profile, use } from 'passport';
 
 import User from '../../models/user';
-import normaliseProfile from './normaliseProfile';
+import normaliseProfile from './profile-normaliser';
 
 use(new Strategy({
   // https://developers.facebook.com/docs/facebook-login/web
