@@ -6,7 +6,7 @@ const router: Router = Router();
 router.route('')
   .post(user.create)
   .get(user.search);
-router.route('/:publicId')
+router.route('/:id')
   .get(user.get)
   .put(user.update)
   .delete(user.remove);
