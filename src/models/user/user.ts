@@ -2,7 +2,7 @@ import { prop, Typegoose, instanceMethod } from 'typegoose';
 
 import jwt from 'jsonwebtoken';
 
-import { Password, Facebook, Twitter } from './authentication'
+import Password, { Facebook, Twitter } from './auth'
 import UuidId from '../properties/uuid-id';
 
 const required = true;
