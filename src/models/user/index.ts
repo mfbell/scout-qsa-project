@@ -1,2 +1,1 @@
-import UserModel from './user';
-export default UserModel;
+export { default } from './user';
