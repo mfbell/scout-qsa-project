@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import * as riskAssessments from '../../controllers/risk-assessments';
 
-const router: Router = Router();
+const router = Router();
 
 router.route('')
   .post(riskAssessments.create);
