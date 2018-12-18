@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-
+/graphql-learn/node_modules
 # production
 /build
 
