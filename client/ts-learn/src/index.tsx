@@ -8,5 +8,5 @@ ReactDOM.render(
         <Hello compiler="TS" framework="react" />
         <Hello2 compiler="TS" framework="react" />
     </>,
-    document.getElementById("example")
+    document.getElementById("example") as HTMLElement
 )
