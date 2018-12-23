@@ -1,0 +1,23 @@
+# Imports MutationResponse, Risk
+
+type RiskAssessment {
+  title: String!
+  risks: [Risk!]!
+}
+
+type Query {
+  getRiskAssessment(id: ID!): RiskAssessment
+  searchRiskAssessments(): [RiskAssessment!]
+}
+
+type Mutation {
+  createRiskAssessment(riskAssessment: RiskAssessmentInput): RiskAssessment
+  updateRiskAssessment(riskAssessment: RiskAssessmentInput): RiskAssessment
+}
+
+type UpdateRiskAssessmentMutaionResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  riskAssessment: RiskAssessment!
+}

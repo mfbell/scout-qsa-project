@@ -1,0 +1,56 @@
+# Imports MutationResponse
+
+type Query {
+  getRisk(id: ID!): Risk
+  getRisks(risk: [String!]!): [Risk!]!
+}
+
+type Mutation {
+  createRisk(risk: RiskInput): UpdateRiskMutaionResponse
+  updateRisk(risk: RiskInput): UpdateRiskMutaionResponse
+}
+
+type Risk {
+  risk: String!
+  affects: String!
+  action: String!
+  severity: Int!
+  likelihood: Int!
+  rating: Rating!
+}
+
+input RiskInput {
+  risk: String!
+  affects: String!
+  action: String!
+  severity: Int!
+  likelihood: Int!
+}
+
+# https://www.thesubath.com/pageassets/health-and-safety/Risk-Assessment-Guidance.pdf
+enum Severity {
+  TRIVIAL
+  MINOR
+  MAJOR
+  FATAL
+}
+
+enum likelihood {
+  REMOTE
+  POSSIBLE
+  PROBABLE
+  LIKELY
+}
+
+enum Rating {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+type UpdateRiskMutaionResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  risk: Risk!
+}

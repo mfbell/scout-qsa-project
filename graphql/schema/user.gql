@@ -1,0 +1,16 @@
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+}
+
+type AuthPayLoad {
+  token: String
+  user: User
+}
+
+type Mutation {
+  createUser(email: String!, passphase: String!, firstName: String!, lastName: String!): AuthPayLoad
+  authUser(email: String!, passphase: String!): AuthPayLoad
+}

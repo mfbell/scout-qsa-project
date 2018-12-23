@@ -1,0 +1,23 @@
+# Import User and RiskAssessment
+
+type Query {
+  getActivity($slug: String!): Activity
+}
+
+type Activity {
+  title: String!
+  updated: Date!
+  contributors: [User!]!
+  image: String
+  alt: String
+  description: String!
+  instructions: [String!]!
+  equipment: [Equipment!]!
+  riskAssessment: RiskAssessment
+}
+
+type Equipment {
+  item: String!
+  quantity: Number!
+  per: String!
+}
