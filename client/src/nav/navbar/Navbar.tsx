@@ -13,7 +13,7 @@ import {
 import { Links } from './Links';
 
 export interface IProps {
-  noSearch: boolean;
+  noSearch?: boolean;
 }
 
 interface IState {

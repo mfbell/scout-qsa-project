@@ -41,7 +41,7 @@ interface IVariables {
 
 class ActivityQuery extends Query<IData, IVariables> {}
 
-export const Activity: FunctionComponent<RouteComponentProps> = ({ match }) =>
+export const View: FunctionComponent<RouteComponentProps> = ({ match }) =>
   <ActivityQuery querry={gql`
     query getActivity($slug: String!) {
       title
