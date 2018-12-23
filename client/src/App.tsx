@@ -1,15 +1,16 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
   Switch
-  } from "react-router-dom";
-import Activities from "./activities";
-import Errors from "./errors";
-import { GraphQLClient } from "./graphql";
-import Us from "./us";
-import Users from "./users";
+  } from 'react-router-dom';
+import * as Activities from './activities';
+import { NoMatch } from './errors';
+import { GraphQLClient } from './graphql';
+import { Home } from './us/Home';
+import AboutUs from './us/info/AboutUs';
+import * as Users from './users';
 
 export default class App extends Component {
   public render() {
@@ -17,8 +18,8 @@ export default class App extends Component {
       <GraphQLClient>
         <Router>
           <Switch>
-            <Route exact path="/" component={Us.Home} />
-            <Route path="/about-us" component={Us.AboutUs} />
+            <Route exact path="/" component={Home} />
+            <Route path="/about-us" component={AboutUs} />
 
             <Route path="/sign-in" component={Users.SignIn} />
             <Route path="/sign-up" component={Users.SignUp} />
@@ -28,8 +29,7 @@ export default class App extends Component {
             <Route path="/create" component={Activities.Create} />
             <Redirect exact from="/a" to="/create" />
 
-            <Route path="/test" component={Test} />
-            <Route component={Errors.NoMatch} />
+            <Route component={NoMatch} />
           </Switch>
         </Router>
       </GraphQLClient>
