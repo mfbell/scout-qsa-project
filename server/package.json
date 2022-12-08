@@ -15,9 +15,9 @@
   "author": "Max Bell",
   "dependencies": {
     "bcrypt": "^3.0.2",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "cors": "^2.8.4",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "express-jwt": "^5.3.1",
     "helmet": "^3.14.0",
     "jsonwebtoken": "^8.3.0",
